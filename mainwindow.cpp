@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QtMath>
 #include <QFileDialog>
+#include <QGraphicsScene>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -39,22 +40,34 @@ MainWindow::MainWindow(QWidget *parent)
     ui->wrong_symbols->setFrameStyle(QFrame::NoFrame);
     ui->wrong_symbols->setText("<p align=\"center\"><font color=#FF4500>-");
 
+
     myFont = new QFont(ui->text->font().family(), ui->text->font().pointSize());
     fm = new QFontMetrics(*myFont);
 
     read_frequency_table();
 
-    //text = "The background of an element is the total size of the element, including padding and border (but not the margin).";
-    //set_text(text);
     ui->length_slider->setValue(100);
-    set_text(renerate_random_text(100));
+    set_text(generate_random_text(100));
 
     startTimer(300);
+
+    QGraphicsScene *Scene = new QGraphicsScene(this);
+    Scene->setSceneRect(ui->keyboard_graphicsView->x(), ui->keyboard_graphicsView->y(),
+                        ui->keyboard_graphicsView->width() - 50, ui->keyboard_graphicsView->height() - 50);
+    ui->keyboard_graphicsView->setScene(Scene);
+    ui->keyboard_graphicsView->setFrameStyle(QFrame::NoFrame);
+    keyboard = new Keyboard(Scene, ui->keyboard_graphicsView->x(), ui->keyboard_graphicsView->y());
+    Scene->addItem(keyboard);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+    keyboard->release_key(event->key());
 }
 
 void MainWindow::next_block() {
@@ -113,6 +126,7 @@ void MainWindow::restart() {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
+    keyboard->press_key(event->key());
     static bool wrong_letter = 0;
     if (event->key() == Qt::Key_Escape) {
         restart();
@@ -197,21 +211,43 @@ char MainWindow::next_letter(QChar ch) {
     }
 }
 
-QString MainWindow::renerate_random_text(int len) {
+char MainWindow::first_letter(){
+    int sum = 0;
+    for (int i = 0; i < 26; i++)
+        sum += first_letter_frequency[i];
+    int rnd = rand() % sum;
+    sum = 0;
+    for (int i = 0; i < 26; i++) {
+        sum += first_letter_frequency[i];
+        if (sum >= rnd) return 'a' + i;
+    }
+}
+
+QString MainWindow::generate_random_text(int len) {
     QString text = "";
     while (text.size() < len) {
         int word_len = qMin(rand() % 6 + 1, len - text.size());
-        QString word = QString('a' + rand() % 26);
-        for (int i = 0; i < word_len; i++)
-            word += next_letter(word[i]);
+        QString word = QString(first_letter());
+        bool ok = 0;
+        for (int i = 0; i < word_len; i++) {
+            QChar next = next_letter(word[i]);
+            while (i >= 1 && consonant.contains(word[i].toUpper().unicode()) &&
+                   consonant.contains(word[i - 1].toUpper().unicode()) && consonant.contains(next.toUpper().unicode()))
+                next = next_letter(word[i]);
+            if (vowels.contains(next.toUpper().unicode())) ok = 1;
+            word += next;
+        }
+        if (!ok) continue;
         text += word;
         if (text.size() < len) text += ' ';
     }
     return text;
 }
 
+
 void MainWindow::on_length_slider_valueChanged(int value) {
-    set_text(renerate_random_text(value));
+    set_text(generate_random_text(value));
+
 }
 
 void MainWindow::on_custom_text_button_clicked() {

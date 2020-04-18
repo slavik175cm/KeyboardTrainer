@@ -65,11 +65,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::keyReleaseEvent(QKeyEvent *event) {
-    if (event->isAutoRepeat()) return;
-    keyboard->release_key(event->key());
-}
-
 void MainWindow::next_block() {
     current = 0;
     int taken_rows = 0;
@@ -125,8 +120,14 @@ void MainWindow::restart() {
     next_block();
 }
 
+void MainWindow::keyReleaseEvent(QKeyEvent *event) {
+    if (event->isAutoRepeat()) return;
+    keyboard->release_key(event);
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    keyboard->press_key(event->key());
+    keyboard->press_key(event);
+
     static bool wrong_letter = 0;
     if (event->key() == Qt::Key_Escape) {
         restart();
@@ -134,7 +135,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         return;
     }
     int c = event->key();
-    if ((c < 'A' || c > 'Z') && !available_symbols.contains(c)) return;
+    if ((c < 'A' || c > 'Z') &&  && !available_symbols.contains(c)) return;
     if (event->modifiers() != Qt::ShiftModifier)
         c = tolower(c);
 

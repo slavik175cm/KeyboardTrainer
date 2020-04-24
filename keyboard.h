@@ -20,7 +20,7 @@ private:
     QString get_button_name(int key);
     quint32 interpretKeyEvent(QKeyEvent* e);
     QVector<QString> pressed;
-    const QVector<int> available_symbols = {'.', ',', ';', '(', ')', ' ', '"', '`', '\'', '?', '-', '+', '\\'};
+    const QVector<int> available_symbols = {'.', ',', ';', '(', ')', ' ', '"', '`', '\'', '?', '-', '+', '\\', L'␣'};
     QVector<QString> modifiers = {"Tab", "Caps Lock", "Shift", "Shift ", "Ctrl", "Ctrl ", "Alt", "Alt ", "Backspace", "Enter"};
     const QVector<QString> double_buttons = {"`\n~", "-\n_", "[\n{", "]\n}", "\\\n|", ";\n:", ",\n<", ".\n>", "/\n?", "\'\n\"", "=\n+",
                                              "!\n1", "@\n2", "#\n3", "$\n4", "%\n5", "^\n6", "&\n7", "*\n8", "(\n9", ")\n0"};

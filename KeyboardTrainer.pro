@@ -18,14 +18,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     keyboard.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    settingsbar.cpp \
+    textgenerator.cpp \
+    textprovider.cpp
 
 HEADERS += \
     keyboard.h \
-    mainwindow.h
+    mainwindow.h \
+    settingsbar.h \
+    textgenerator.h \
+    textprovider.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    settingsbar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

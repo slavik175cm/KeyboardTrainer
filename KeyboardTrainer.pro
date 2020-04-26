@@ -20,6 +20,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     settingsbar.cpp \
+    statisticsprovider.cpp \
     textgenerator.cpp \
     textprovider.cpp
 
@@ -27,6 +28,7 @@ HEADERS += \
     keyboard.h \
     mainwindow.h \
     settingsbar.h \
+    statisticsprovider.h \
     textgenerator.h \
     textprovider.h
 

@@ -5,15 +5,30 @@
 #include <QTimer>
 #include <QDebug>
 
-TextProvider::TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors)
+TextProvider::TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, StatisticsProvider *statistics_provider)
 {
     this->text_field = text_field;
     this->symbols_per_minute = symbols_per_minute;
     this->number_of_errors = number_of_errors;
-
+    this->statistics_provider = statistics_provider;
     myFont = new QFont(text_field->font().family(), text_field->font().pointSize());
     fm = new QFontMetrics(*myFont);
+
     startTimer(300);
+}
+
+void TextProvider::change_font(QFont *new_font) {
+    myFont = new QFont(new_font->family(), myFont->pointSize());
+    fm = new QFontMetrics(*myFont);
+    text_field->setFont(*myFont);
+    restart();
+}
+
+void TextProvider::change_font_size(int new_size) {
+    myFont = new QFont(myFont->family(), new_size);
+    fm = new QFontMetrics(*myFont);
+    text_field->setFont(*myFont);
+    restart();
 }
 
 void TextProvider::next_block() {
@@ -70,9 +85,10 @@ void TextProvider::input_letter(QKeyEvent *event) {
         current++;
 
         if (current == block_len && last_not_taken == list_of_words.size()) {
-            symbols_per_minute->setText("<p align=\"center\"><font color=#BBA8AD>" +
-                                        QString::number((qint64)text.size() * 1000 * 60 / (QDateTime::currentMSecsSinceEpoch() - time_started)));
+            int spm = (qint64)text.size() * 1000 * 60 / (QDateTime::currentMSecsSinceEpoch() - time_started);
+            symbols_per_minute->setText("<p align=\"center\"><font color=#BBA8AD>" + QString::number(spm));
             number_of_errors->setText("<p align=\"center\"><font color=#FF4500>" + QString::number(wrong_symbols));
+            statistics_provider->add_new_sample(spm);
             restart();
             return;
         }

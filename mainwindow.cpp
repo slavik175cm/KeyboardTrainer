@@ -6,8 +6,9 @@
 #include <QtMath>
 #include <QFileDialog>
 #include <QGraphicsScene>
+#include <QGraphicsView>
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent) //sdfpkgsld;fkjgl;skdfjg
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -40,11 +41,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->wrong_symbols->setText("<p align=\"center\"><font color=#FF4500>-");
     text_generator = new TextGenerator();
 
-    text_provider = new TextProvider(ui->text, ui->spm, ui->wrong_symbols);
-    text_provider->restart(text_generator->generate_random_text(100));
-    ui->length_slider->setValue(100);
-    startTimer(300);
-
     QGraphicsScene *Scene = new QGraphicsScene(this);
     Scene->setSceneRect(ui->keyboard_graphicsView->x(), ui->keyboard_graphicsView->y(),
                         ui->keyboard_graphicsView->width() - 50, ui->keyboard_graphicsView->height() - 50);
@@ -52,10 +48,28 @@ MainWindow::MainWindow(QWidget *parent)
     ui->keyboard_graphicsView->setFrameStyle(QFrame::NoFrame);
     keyboard = new Keyboard(Scene, ui->keyboard_graphicsView->x(), ui->keyboard_graphicsView->y());
     Scene->addItem(keyboard);
-    settings_bar = new SettingsBar();
+
+    QGraphicsScene *statistics_scene = new QGraphicsScene();
+    statistics_scene->setSceneRect(ui->graphics_view_for_statistics->x(), ui->graphics_view_for_statistics->y(),
+                        ui->graphics_view_for_statistics->width() - 50, ui->graphics_view_for_statistics->height() - 50);
+    ui->graphics_view_for_statistics->setScene(statistics_scene);
+
+    statistics_provider = new StatisticsProvider(statistics_scene);
+    statistics_scene->addItem(statistics_provider);
+    statistics_scene->update();
+
+    text_provider = new TextProvider(ui->text, ui->spm, ui->wrong_symbols, statistics_provider);
+    text_provider->restart(text_generator->generate_random_text(100));
+    ui->length_slider->setValue(100);
+
+    ui->main_stackedWidget->setCurrentIndex(0);
+    settings_bar = new SettingsBar(this, text_provider, statistics_provider, ui->main_stackedWidget);
     ui->stackedWidget->insertWidget(1, settings_bar);
     ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget->setFocusPolicy(Qt::NoFocus);
+}
 
+void MainWindow::clear_all() {
 }
 
 MainWindow::~MainWindow()

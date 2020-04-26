@@ -8,10 +8,12 @@
 #include "textgenerator.h"
 #include "textprovider.h"
 #include "settingsbar.h"
+#include "statisticsprovider.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
+class SettingsBar;
+class StatisticsProvider;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -19,6 +21,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void clear_all();
 
 private slots:
     void on_custom_text_button_clicked();
@@ -30,10 +33,13 @@ private slots:
     void on_random_text_button_clicked();
 
 private:
+    QGraphicsScene *scene;
+    QGraphicsView *view;
     Keyboard *keyboard;
     TextGenerator *text_generator;
     TextProvider *text_provider;
     SettingsBar *settings_bar;
+    StatisticsProvider *statistics_provider;
     Ui::MainWindow *ui;
 
     void keyPressEvent(QKeyEvent *event);

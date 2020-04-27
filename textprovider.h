@@ -22,6 +22,9 @@ public:
     QFont *myFont;
     QFontMetrics *fm;
     const QVector<int> available_symbols = {'.', ',', ';', '(', ')', ' ', '"', '\''};
+    QVector<int> letter_pressed_count;
+    QVector<int> letter_mistakes;
+
 
     TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, StatisticsProvider *statistics_provider);
     void change_font(QFont *new_font);

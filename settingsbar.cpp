@@ -22,6 +22,7 @@ SettingsBar::SettingsBar(MainWindow *mainwindow, TextProvider *text_provider, St
         ui->font_size_comboBox->addItem(QString::number(i));
     ui->font_size_comboBox->setEditable(false);
     ui->font_size_comboBox->setCurrentIndex(20);
+
 }
 
 SettingsBar::~SettingsBar()

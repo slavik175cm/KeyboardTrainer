@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1920</width>
-    <height>1080</height>
+    <width>1581</width>
+    <height>735</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page_5">
      <widget class="QTextBrowser" name="textBrowser_2">
@@ -55,7 +55,7 @@
        <rect>
         <x>150</x>
         <y>0</y>
-        <width>220</width>
+        <width>291</width>
         <height>131</height>
        </rect>
       </property>
@@ -506,7 +506,7 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>82</x>
         <y>230</y>
-        <width>170</width>
+        <width>201</width>
         <height>21</height>
        </rect>
       </property>
@@ -590,7 +590,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1920</width>
+     <width>1581</width>
      <height>21</height>
     </rect>
    </property>

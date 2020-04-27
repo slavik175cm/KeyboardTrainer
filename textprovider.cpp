@@ -14,6 +14,9 @@ TextProvider::TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_m
     myFont = new QFont(text_field->font().family(), text_field->font().pointSize());
     fm = new QFontMetrics(*myFont);
 
+    letter_pressed_count.resize(26);
+    letter_mistakes.resize(26);
+
     startTimer(300);
 }
 
@@ -83,12 +86,13 @@ void TextProvider::input_letter(QKeyEvent *event) {
         change_letter_color(current, wrong_letter ?  "#FA4940" : "#BBA8AD");
         wrong_letter = 0;
         current++;
+        letter_pressed_count[tolower(c) - 'a']++;
 
         if (current == block_len && last_not_taken == list_of_words.size()) {
             int spm = (qint64)text.size() * 1000 * 60 / (QDateTime::currentMSecsSinceEpoch() - time_started);
             symbols_per_minute->setText("<p align=\"center\"><font color=#BBA8AD>" + QString::number(spm));
             number_of_errors->setText("<p align=\"center\"><font color=#FF4500>" + QString::number(wrong_symbols));
-            statistics_provider->add_new_sample(spm);
+            statistics_provider->add_new_sample(spm, letter_pressed_count, letter_mistakes);
             restart();
             return;
         }
@@ -99,6 +103,8 @@ void TextProvider::input_letter(QKeyEvent *event) {
         change_letter_background(current, "#48444A");
     } else {
         wrong_letter = 1;
+        letter_mistakes[tolower(c) - 'a']++;
+        letter_pressed_count[tolower(c) - 'a']++;
         wrong_symbols++;
     }
 }

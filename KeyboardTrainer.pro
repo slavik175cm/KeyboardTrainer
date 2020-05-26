@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,26 +16,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    database.cpp \
+    form.cpp \
     keyboard.cpp \
     main.cpp \
     mainwindow.cpp \
     settingsbar.cpp \
     statisticsprovider.cpp \
     textgenerator.cpp \
-    textprovider.cpp
+    textprovider.cpp \
+    user.cpp
 
 HEADERS += \
+    database.h \
+    form.h \
     keyboard.h \
     mainwindow.h \
     settingsbar.h \
     statisticsprovider.h \
     textgenerator.h \
-    textprovider.h
+    textprovider.h \
+    user.h
 
 FORMS += \
+    form.ui \
     mainwindow.ui \
     settingsbar.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target

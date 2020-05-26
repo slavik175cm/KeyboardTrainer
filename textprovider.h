@@ -4,29 +4,30 @@
 #include <QKeyEvent>
 #include <QTextBrowser>
 #include <statisticsprovider.h>
+#include "user.h"
 class TextProvider : QObject
 {
 public:
     QTextBrowser *text_field;
     QTextBrowser *symbols_per_minute;
     QTextBrowser *number_of_errors;
-    StatisticsProvider *statistics_provider;
 
     int current = 0, current_block = 0;
     int wrong_symbols = 0;
     QString text, block;
     int block_len, blocksize, block_rows, last_not_taken = 0;
     qint64 time_started = 0;
-    bool cursor_visible = 1;
+    bool cursor_visible = 1, random_mode = 1;
     QStringList list_of_words;
     QFont *myFont;
     QFontMetrics *fm;
     const QVector<int> available_symbols = {'.', ',', ';', '(', ')', ' ', '"', '\''};
     QVector<int> letter_pressed_count;
     QVector<int> letter_mistakes;
+    User *user;
 
 
-    TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, StatisticsProvider *statistics_provider);
+    TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, User *user);
     void change_font(QFont *new_font);
     void change_font_size(int new_size);
     void next_block();

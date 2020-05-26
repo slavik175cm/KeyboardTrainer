@@ -19,11 +19,22 @@
   <widget class="QTextBrowser" name="user_name">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>61</x>
      <y>220</y>
      <width>181</width>
-     <height>35</height>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>MS Shell Dlg 2</family>
+     <pointsize>17</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::NoFrame</enum>
@@ -35,8 +46,8 @@
     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; color:#c0c0c0;&quot;&gt;User name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:17pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#c0c0c0;&quot;&gt;Username&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLabel" name="font_size_label">
@@ -50,6 +61,43 @@ p, li { white-space: pre-wrap; }
      <width>71</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>192</red>
+         <green>192</green>
+         <blue>192</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>192</red>
+         <green>192</green>
+         <blue>192</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>120</red>
+         <green>120</green>
+         <blue>120</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
    </property>
    <property name="font">
     <font>
@@ -76,10 +124,13 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color:silver;</string>
    </property>
    <property name="maxVisibleItems">
     <number>10</number>
+   </property>
+   <property name="frame">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QLabel" name="font_label">
@@ -90,9 +141,46 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>10</x>
      <y>402</y>
-     <width>41</width>
+     <width>38</width>
      <height>21</height>
     </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>192</red>
+         <green>192</green>
+         <blue>192</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>192</red>
+         <green>192</green>
+         <blue>192</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>120</red>
+         <green>120</green>
+         <blue>120</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
    </property>
    <property name="font">
     <font>
@@ -106,7 +194,7 @@ p, li { white-space: pre-wrap; }
     <string>Font</string>
    </property>
   </widget>
-  <widget class="QStackedWidget" name="stackedWidget">
+  <widget class="QStackedWidget" name="register_panel">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -125,7 +213,7 @@ p, li { white-space: pre-wrap; }
     <widget class="QPushButton" name="log_in_button">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>25</x>
        <y>10</y>
        <width>75</width>
        <height>24</height>
@@ -141,7 +229,7 @@ p, li { white-space: pre-wrap; }
     <widget class="QPushButton" name="sign_up_button">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>165</x>
        <y>10</y>
        <width>75</width>
        <height>24</height>
@@ -156,43 +244,20 @@ p, li { white-space: pre-wrap; }
     </widget>
    </widget>
    <widget class="QWidget" name="page_2">
-    <widget class="QPushButton" name="change_icon_button">
+    <widget class="QPushButton" name="log_out_button">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>93</x>
        <y>10</y>
-       <width>81</width>
-       <height>24</height>
+       <width>80</width>
+       <height>23</height>
       </rect>
      </property>
-     <property name="text">
-      <string>change icon</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="change_name_button">
-     <property name="geometry">
-      <rect>
-       <x>89</x>
-       <y>10</y>
-       <width>90</width>
-       <height>24</height>
-      </rect>
+     <property name="styleSheet">
+      <string notr="true">background-color:silver;</string>
      </property>
      <property name="text">
-      <string>change name</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="change_user_button">
-     <property name="geometry">
-      <rect>
-       <x>184</x>
-       <y>10</y>
-       <width>81</width>
-       <height>24</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>change user</string>
+      <string>log out</string>
      </property>
     </widget>
    </widget>
@@ -210,18 +275,21 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color:silver;</string>
    </property>
    <property name="maxVisibleItems">
     <number>10</number>
+   </property>
+   <property name="frame">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QLabel" name="icon">
    <property name="geometry">
     <rect>
-     <x>43</x>
+     <x>54</x>
      <y>20</y>
-     <width>190</width>
+     <width>189</width>
      <height>191</height>
     </rect>
    </property>
@@ -232,7 +300,7 @@ p, li { white-space: pre-wrap; }
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>../../закачки/person_image</pixmap>
+    <pixmap>../../закачки/person_image2.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -249,11 +317,14 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="font">
     <font>
-     <family>Comic Sans MS</family>
+     <family>MS Shell Dlg 2</family>
      <pointsize>15</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {background-color: silver; color: #383838;};
@@ -274,18 +345,21 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="font">
     <font>
-     <family>Comic Sans MS</family>
+     <family>MS Shell Dlg 2</family>
      <pointsize>15</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {background-color: silver; color: #383838;};
 </string>
    </property>
    <property name="text">
-    <string>Stitistics</string>
+    <string>Statistics</string>
    </property>
   </widget>
   <widget class="QPushButton" name="information_button">
@@ -299,11 +373,14 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="font">
     <font>
-     <family>Comic Sans MS</family>
+     <family>MS Shell Dlg 2</family>
      <pointsize>15</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QPushButton {background-color: silver; color: #383838;};

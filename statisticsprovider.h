@@ -3,11 +3,11 @@
 #include <QVector>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
+#include "user.h"
 class StatisticsProvider : public QGraphicsItem
 {
 public:
-    StatisticsProvider(QGraphicsScene *scene);
-    void add_new_sample(int current_speed, QVector<int> letter_pressed_count, QVector<int> letter_mistakes);
+    StatisticsProvider(QGraphicsScene *scene, User *user);
     void display_statistics();
 private:
     QRectF boundingRect() const override;
@@ -16,9 +16,7 @@ private:
     void display_graph(QPainter *painter, int x, int y, int width, int height);
     void display_bar_chart(QPainter *painter, int x, int y, int width, int height);
     void display_labels(QPainter *painter);
-    QVector<int> speed;
-    QVector<int> letter_pressed_count;
-    QVector<int> letter_mistakes;
+    User *user;
 };
 
 #endif // STATISTICSPROVIDER_H

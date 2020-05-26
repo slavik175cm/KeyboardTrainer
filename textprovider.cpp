@@ -5,12 +5,12 @@
 #include <QTimer>
 #include <QDebug>
 
-TextProvider::TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, StatisticsProvider *statistics_provider)
+TextProvider::TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, User *user)
 {
     this->text_field = text_field;
     this->symbols_per_minute = symbols_per_minute;
     this->number_of_errors = number_of_errors;
-    this->statistics_provider = statistics_provider;
+    this->user = user;
     myFont = new QFont(text_field->font().family(), text_field->font().pointSize());
     fm = new QFontMetrics(*myFont);
 
@@ -86,13 +86,15 @@ void TextProvider::input_letter(QKeyEvent *event) {
         change_letter_color(current, wrong_letter ?  "#FA4940" : "#BBA8AD");
         wrong_letter = 0;
         current++;
-        letter_pressed_count[tolower(c) - 'a']++;
+        if (tolower(c) >= 'a' && tolower(c) <= 'z')
+            letter_pressed_count[tolower(c) - 'a']++;
 
         if (current == block_len && last_not_taken == list_of_words.size()) {
             int spm = (qint64)text.size() * 1000 * 60 / (QDateTime::currentMSecsSinceEpoch() - time_started);
             symbols_per_minute->setText("<p align=\"center\"><font color=#BBA8AD>" + QString::number(spm));
             number_of_errors->setText("<p align=\"center\"><font color=#FF4500>" + QString::number(wrong_symbols));
-            statistics_provider->add_new_sample(spm, letter_pressed_count, letter_mistakes);
+            if (random_mode == 1)
+                user->add_new_sample(spm, letter_pressed_count, letter_mistakes);
             restart();
             return;
         }
@@ -103,8 +105,10 @@ void TextProvider::input_letter(QKeyEvent *event) {
         change_letter_background(current, "#48444A");
     } else {
         wrong_letter = 1;
-        letter_mistakes[tolower(c) - 'a']++;
-        letter_pressed_count[tolower(c) - 'a']++;
+        if (tolower(c) >= 'a' && tolower(c) <= 'z') {
+            letter_mistakes[tolower(c) - 'a']++;
+            letter_pressed_count[tolower(c) - 'a']++;
+        }
         wrong_symbols++;
     }
 }
@@ -128,6 +132,10 @@ void TextProvider::restart() {
     time_started = 0;
     cursor_visible = 1;
     wrong_symbols = 0;
+    for (int i = 0; i < 26; i++) {
+        letter_mistakes[i] = 0;
+        letter_pressed_count[i] = 0;
+    }
     next_block();
 }
 

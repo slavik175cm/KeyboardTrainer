@@ -2,7 +2,9 @@
 #include "ui_settingsbar.h"
 #include "QDebug"
 #include <QGraphicsView>
-SettingsBar::SettingsBar(MainWindow *mainwindow, TextProvider *text_provider, StatisticsProvider *statistics_provider, QStackedWidget *main_stackedWidget, QWidget *parent) :
+SettingsBar::SettingsBar(MainWindow *mainwindow, TextProvider *text_provider,
+                         StatisticsProvider *statistics_provider, QStackedWidget *main_stackedWidget,
+                         Form *form, User *user, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingsBar)
 {
@@ -11,7 +13,9 @@ SettingsBar::SettingsBar(MainWindow *mainwindow, TextProvider *text_provider, St
     this->text_provider = text_provider;
     this->statistics_provider = statistics_provider;
     this->main_stackedWidget = main_stackedWidget;
-    ui->stackedWidget->setCurrentIndex(0);
+    this->form = form;
+    this->user = user;
+    ui->register_panel->setCurrentIndex(0);
 
     ui->font_label->hide();
     ui->font_size_label->hide();
@@ -22,6 +26,8 @@ SettingsBar::SettingsBar(MainWindow *mainwindow, TextProvider *text_provider, St
         ui->font_size_comboBox->addItem(QString::number(i));
     ui->font_size_comboBox->setEditable(false);
     ui->font_size_comboBox->setCurrentIndex(20);
+
+    ui->statistics_button->setFocusPolicy(Qt::NoFocus);
 
 }
 
@@ -76,4 +82,31 @@ void SettingsBar::on_statistics_button_clicked()
     statistics_provider->display_statistics();
     ui->statistics_button->setText(is_statistics_opened ? "Go back" : "Statistics");
     is_statistics_opened ^= 1;
+}
+
+void SettingsBar::on_user_changed() {
+    ui->user_name->setHtml("<p align=\"center\"><span style=\"color:#c0c0c0;\">" + user->name);
+    ui->register_panel->setCurrentIndex(1 ^ ui->register_panel->currentIndex());
+    if (ui->statistics_button->text() == "Go back") {
+        statistics_provider->display_statistics();
+    }
+}
+
+void SettingsBar::on_log_in_button_clicked()
+{
+    mainwindow->setEnabled(false);
+    form->show(form->LogIn);
+}
+
+void SettingsBar::on_sign_up_button_clicked()
+{
+    mainwindow->setEnabled(false);
+    form->show(form->SignUp);
+}
+
+void SettingsBar::on_log_out_button_clicked()
+{
+    *user = *(new User(user->db));
+    ui->user_name->setText("Username");
+    mainwindow->on_user_changed();
 }

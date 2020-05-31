@@ -22,6 +22,9 @@ void StatisticsProvider::display_graph(QPainter *painter, int x, int y, int widt
     painter->setPen(Qt::PenStyle::CustomDashLine);
     painter->drawLine(x, y, x, y - height);
     painter->drawLine(x, y, x + width, y);
+    painter->setFont(QFont("MS Shell Dlg 2", 12));
+    QPen pen1(Qt::gray);
+    QPen pen2(Qt::black);
 
     int mx = 0;
     for (int i = 0; i < user->speed.size(); i++)
@@ -31,19 +34,23 @@ void StatisticsProvider::display_graph(QPainter *painter, int x, int y, int widt
 
     double current_y = y, step_y = (double)height / 9;
     for (int i = 0; i < 10; i++) {
+        painter->setPen(pen2);
         painter->drawLine(x, current_y, x + width, current_y);
+        painter->setPen(pen1);
         painter->drawText(x - 35, current_y + 5, QString::number((int)(ceil((y - current_y) / coeff))));
         current_y -= step_y;
     }
-
     int current_x = x, how_many = 1, number = qMin(10, user->speed.size());
     int step_x = width / qMax(number - 1, 1);
     for (int i = 0; i < number; i++) {
+        painter->setPen(pen2);
         painter->drawLine(current_x, y - 5, current_x, y + 5);
+        painter->setPen(pen1);
         painter->drawText(current_x - 5, y + 35, QString::number(how_many));
         current_x += step_x;
         while (how_many < user->speed.size() && x + how_many * (step - 1) <= current_x) how_many++;
     }
+    painter->setFont(QFont("MS Shell Dlg 2", 8));
 
     QPen pen(Qt::gray, 5);
     painter->setPen(pen);
@@ -60,22 +67,20 @@ void StatisticsProvider::display_graph(QPainter *painter, int x, int y, int widt
 }
 
 void StatisticsProvider::display_bar_chart(QPainter *painter, int x, int y, int width, int height) {
-    //painter->setFont(QFont("Comic Sans MC", 15));
     painter->setPen(Qt::PenStyle::CustomDashLine);
     painter->drawLine(x, y, x + width, y);
+    painter->setFont(QFont("MS Shell Dlg 2", 11));
     int step = width / 25;
     const int bar_width = 15;
     int current_x = x ;
     for (int i = 0; i < 26; i++) {
         painter->drawRect(current_x - bar_width, y - height, bar_width * 2, height);
-        double coeff = (double)user->letter_mistakes[i] / qMax(user->letter_pressed_count[i], 1);
+        double coeff = (double)user->letter_mistakes[i] / qMax(user->letter_pressed[i], 1);
         painter->fillRect(current_x - bar_width + 1, qCeil(y - height * (1 - coeff)) + 1, bar_width * 2 - 1, height * (1 - coeff) - 1, Qt::darkGreen);
-        //painter->drawText(current_x - 10, y - height / 2, QString::number(letter_mistakes[i]) + '/');
-        //painter->drawText(current_x - 10, y - height / 2 + 15, QString::number(letter_pressed_count[i]));
-        //QPen pen(Qt::gray); painter->setPen(pen);
+
         painter->drawText(current_x - 10, y + 20, QString::number((int)((1 - coeff) * 100)) + '%');
         painter->drawText(current_x - 5, y + 40, QString('A' + i));
-        //    painter->setPen(Qt::PenStyle::CustomDashLine);
+
         current_x += step;
     }
 }
@@ -84,7 +89,6 @@ void StatisticsProvider::display_labels(QPainter *painter) {
     QPen pen(Qt::gray);
     painter->setFont(QFont("Comic Sans MC", 40));
     painter->setPen(pen);
-
     int sum = 0;
     for (int i = 0; i < user->speed.size(); i++)
         sum += user->speed[i];

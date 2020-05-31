@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     statistics_scene->addItem(statistics_provider);
     statistics_scene->update();
 
-    text_provider = new TextProvider(ui->text, ui->spm, ui->wrong_symbols, user);
+    text_provider = new TextProvider(ui->text, ui->spm, ui->wrong_symbols, text_generator, user);
     on_length_slider_valueChanged(100);
     ui->length_slider->setValue(100);
     ui->random_text_button->setChecked(true);
@@ -74,7 +74,6 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event) {
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     keyboard->press_key(event);
     text_provider->input_letter(event);
-
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event) {
@@ -83,13 +82,20 @@ void MainWindow::mousePressEvent(QMouseEvent *event) {
 }
 
 void MainWindow::on_custom_text_textChanged() {
+    static QString text = "";
+    if (text == ui->custom_text->toPlainText()) return;
     if (ui->custom_text->toPlainText().size() == 0) {
         QMessageBox::warning(NULL, "error", "это поле не должно быть пустым");
         return;
     }
     text_provider->restart(ui->custom_text->toPlainText());
-}
 
+    text = ui->custom_text->toPlainText();
+    ui->custom_text->setHtml(text);
+    QTextCursor *newCursor = new QTextCursor(ui->custom_text->document());
+    newCursor->movePosition(QTextCursor::End);
+    ui->custom_text->setTextCursor(*newCursor);
+}
 
 void MainWindow::on_length_slider_valueChanged(int value) {
     text_provider->restart(text_generator->generate_random_text(value));
@@ -103,6 +109,7 @@ void MainWindow::on_custom_text_button_clicked() {
 }
 
 void MainWindow::on_random_text_button_clicked() {
+    mousePressEvent(nullptr);
     ui->length_slider->show();
     ui->custom_text->hide();
     on_length_slider_valueChanged(ui->length_slider->value());

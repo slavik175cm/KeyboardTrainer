@@ -26,7 +26,6 @@ void Form::keyPressEvent(QKeyEvent *event) {
 
     if (event->key() == Qt::Key_Return)
         on_OK_button_clicked();
-
 }
 
 void Form::show(int mode) {

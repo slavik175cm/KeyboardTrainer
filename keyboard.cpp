@@ -85,7 +85,6 @@ void Keyboard::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->setPen(QColor(40, 40, 40));
         painter->drawText(buttons[pressed[i]], Qt::AlignCenter, pressed[i]);
     }
-
 }
 
 QString Keyboard::get_button_name(int key){

@@ -5,11 +5,12 @@
 #include <QTimer>
 #include <QDebug>
 
-TextProvider::TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, User *user)
+TextProvider::TextProvider(QTextBrowser *text_field, QTextBrowser *symbols_per_minute, QTextBrowser *number_of_errors, TextGenerator *text_generator, User *user)
 {
     this->text_field = text_field;
     this->symbols_per_minute = symbols_per_minute;
     this->number_of_errors = number_of_errors;
+    this->text_generator = text_generator;
     this->user = user;
     myFont = new QFont(text_field->font().family(), text_field->font().pointSize());
     fm = new QFontMetrics(*myFont);
@@ -24,6 +25,8 @@ void TextProvider::change_font(QFont *new_font) {
     myFont = new QFont(new_font->family(), myFont->pointSize());
     fm = new QFontMetrics(*myFont);
     text_field->setFont(*myFont);
+    last_not_taken = 0;
+    block_rows = (text_field->height() / fm->boundingRect(text).height());
     restart();
 }
 
@@ -31,6 +34,8 @@ void TextProvider::change_font_size(int new_size) {
     myFont = new QFont(myFont->family(), new_size);
     fm = new QFontMetrics(*myFont);
     text_field->setFont(*myFont);
+    last_not_taken = 0;
+    block_rows = (text_field->height() / fm->boundingRect(text).height());
     restart();
 }
 
@@ -49,6 +54,7 @@ void TextProvider::next_block() {
             if (i == list_of_words.size() - 1 || taken_rows == block_rows) {
                 block.remove(block.size() - 1, 1);
                 block_len = block.size();
+                text = block;
                 add_html(block);
                 text_field->setText(block);
                 return;
@@ -75,12 +81,14 @@ void TextProvider::input_letter(QKeyEvent *event) {
         return;
     }
     int c = event->key();
+    if ((tolower(c) < 'a' || tolower(c) > 'z') && (c < '0' || c > '9') && !available_symbols.contains(c))
+        return;
+    qDebug() << event->key();
     if (c >= 'A' && c <= 'Z' && event->modifiers() != Qt::ShiftModifier)
         c = tolower(c);
 
     if (time_started == 0)
         time_started = QDateTime::currentMSecsSinceEpoch();
-
     if (text[current] == c) {
         change_letter_background(current, "#4D535E");
         change_letter_color(current, wrong_letter ?  "#FA4940" : "#BBA8AD");
@@ -90,12 +98,13 @@ void TextProvider::input_letter(QKeyEvent *event) {
             letter_pressed_count[tolower(c) - 'a']++;
 
         if (current == block_len && last_not_taken == list_of_words.size()) {
-            int spm = (qint64)text.size() * 1000 * 60 / (QDateTime::currentMSecsSinceEpoch() - time_started);
+            int spm = (qint64)text_length * 1000 * 60 / (QDateTime::currentMSecsSinceEpoch() - time_started);
             symbols_per_minute->setText("<p align=\"center\"><font color=#BBA8AD>" + QString::number(spm));
             number_of_errors->setText("<p align=\"center\"><font color=#FF4500>" + QString::number(wrong_symbols));
-            if (random_mode == 1)
+            if (random_mode == 1) {
                 user->add_new_sample(spm, letter_pressed_count, letter_mistakes);
-            restart();
+                restart(text_generator->generate_random_text(text_length));
+            } else restart();
             return;
         }
         if (current == block_len) {
@@ -105,9 +114,9 @@ void TextProvider::input_letter(QKeyEvent *event) {
         change_letter_background(current, "#48444A");
     } else {
         wrong_letter = 1;
-        if (tolower(c) >= 'a' && tolower(c) <= 'z') {
-            letter_mistakes[tolower(c) - 'a']++;
-            letter_pressed_count[tolower(c) - 'a']++;
+        if (text[current].toLower() >= 'a' && text[current].toLower() <= 'z') {
+            letter_mistakes[text[current].toLower().unicode() - 'a']++;
+            letter_pressed_count[text[current].toLower().unicode() - 'a']++;
         }
         wrong_symbols++;
     }
@@ -141,6 +150,7 @@ void TextProvider::restart() {
 
 void TextProvider::restart(QString new_text) {
     text = new_text;
+    text_length = text.length();
     list_of_words = text.split(' ');
     block_rows = (text_field->height() / fm->boundingRect(text).height());
     restart();
@@ -148,7 +158,6 @@ void TextProvider::restart(QString new_text) {
 
 
 void TextProvider::timerEvent(QTimerEvent *event) {
-    if (current == block_len) return;
     change_letter_background(current, cursor_visible ? "#48444A" : "#4D535E");
     cursor_visible ^= 1;
 }

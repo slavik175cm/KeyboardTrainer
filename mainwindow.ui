@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1581</width>
-    <height>735</height>
+    <width>1900</width>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,7 +53,7 @@
      <string notr="true">background-color: #4D535E;</string>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="page_5">
      <widget class="QTextBrowser" name="textBrowser_2">
@@ -73,7 +73,7 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:36pt; color:#c0c0c0;&quot;&gt;Keyborad  &lt;br /&gt;Trainer&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:36pt; color:#c0c0c0;&quot;&gt;Keyboard  &lt;br /&gt;Trainer&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QLabel" name="label">
@@ -983,6 +983,53 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_3">
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>710</y>
+        <width>611</width>
+        <height>341</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../закачки/keyboard-colors-new3.png</pixmap>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>70</y>
+        <width>1391</width>
+        <height>531</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:28pt; color:#ffffff;&quot;&gt;Typing Tips&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:24pt; color:#ffffff;&quot;&gt;For maximal comfort and typing speed please follow these simple rules:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#ffffff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; color:#c0c0c0;&quot;&gt;          &lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#ffffff;&quot;&gt;1.&lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt; Place your hands on the keyboard appropriately, so that your left forefinger is on the ‘F’ key, and the right one is on the ‘J’ key. You should feel the bump at the bottom of each of these keys.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#ffffff;&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt; Group keys in zones and only use appropriate finger for each key. Use the illustration below to learn which finger is responsible for every key.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt;Always return fingers to the initial position after each keystroke.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#ffffff;&quot;&gt;3.&lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt; Try not to look at the keyboard, but look at the screen only. If you are stuck, use the virtual keyboard to find the proper key.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt;        &lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#ffffff;&quot;&gt;4.&lt;/span&gt;&lt;span style=&quot; font-size:22pt; color:#c0c0c0;&quot;&gt; Please do not rush. First learn to type accurately, and only then improve your typing speed.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:22pt; color:#c0c0c0;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:22pt; color:#ffffff;&quot;&gt;        Remember, practice makes perfect, so do not give up early. For most people it takes at least several hours of practice to get to the decent speed. The optimal schedule is to study typing for 20-40 minutes daily. In a week you will see a difference.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -990,12 +1037,11 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1581</width>
+     <width>1900</width>
      <height>21</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

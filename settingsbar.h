@@ -39,6 +39,8 @@ private slots:
 
     void on_log_out_button_clicked();
 
+    void on_information_button_clicked();
+
 private:
     MainWindow *mainwindow;
     TextProvider *text_provider;

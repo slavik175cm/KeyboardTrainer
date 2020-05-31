@@ -207,7 +207,7 @@ p, li { white-space: pre-wrap; }
     <string notr="true"/>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QPushButton" name="log_in_button">

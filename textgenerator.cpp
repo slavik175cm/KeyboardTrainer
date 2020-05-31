@@ -1,7 +1,7 @@
 #include "textgenerator.h"
 #include <qfile.h>
-
 TextGenerator::TextGenerator() {
+    srand(time(0));
     read_frequency_table();
 }
 
@@ -10,8 +10,10 @@ void TextGenerator::read_frequency_table() {
     file.open(QIODevice::ReadWrite);
     for (int i = 0; i < 26; i++) {
         QStringList line = QString(file.readLine()).split(' ');
-        for (int j = 0; j < 26; j++)
+        for (int j = 0; j < 26; j++) {
             frequency_table[i][j] = line[j].toInt();
+            if (frequency_table[i][j] < 20) frequency_table[i][j] = 0;
+        }
     }
 }
 
@@ -42,20 +44,34 @@ char TextGenerator::first_letter() {
 QString TextGenerator::generate_random_text(int len) {
     QString text = "";
     while (text.size() < len) {
-        int word_len = qMin(rand() % 6 + 1, len - text.size());
+        int word_len = rand() % 6 + 3;
+        if (len  <= text.size() + word_len + 3)
+            word_len = len - text.size();
+
         QString word = QString(first_letter());
-        bool ok = 0;
-        for (int i = 0; i < word_len; i++) {
-            QChar next = next_letter(word[i]);
-            while (i >= 1 && consonant.contains(word[i].toUpper().unicode()) &&
-                   consonant.contains(word[i - 1].toUpper().unicode()) && consonant.contains(next.toUpper().unicode()))
-                next = next_letter(word[i]);
-            if (vowels.contains(next.toUpper().unicode())) ok = 1;
-            word += next;
+        bool ok = 1;
+        for (int i = 1; i < word_len; i++) {
+            word += next_letter(word[i - 1]);
+            //checking for three consonant or vowel symbols in a row
+            if (i >= 2) {
+                bool all_vowels = 1, all_consonants = 1;
+
+                for (int j = i - 2; j <= i; j++) {
+                    all_vowels &= vowels.contains(word[j].toUpper().unicode());
+                    all_consonants &= consonants.contains(word[j].toUpper().unicode());
+                }
+
+                if (all_vowels || all_consonants) {
+                    ok = 0;
+                    break;
+                }
+            }
         }
+
         if (!ok) continue;
         text += word;
-        if (text.size() < len) text += ' ';
+        if (text.size() < len)
+            text += ' ';
     }
     return text;
 }

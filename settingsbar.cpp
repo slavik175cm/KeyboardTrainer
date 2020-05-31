@@ -77,6 +77,8 @@ void SettingsBar::on_font_size_comboBox_currentIndexChanged(const QString &arg1)
 
 void SettingsBar::on_statistics_button_clicked()
 {
+    if (ui->information_button->text() == "Go back")
+        on_information_button_clicked();
     static bool is_statistics_opened = 1;
     main_stackedWidget->setCurrentIndex(is_statistics_opened);
     statistics_provider->display_statistics();
@@ -109,4 +111,15 @@ void SettingsBar::on_log_out_button_clicked()
     *user = *(new User(user->db));
     ui->user_name->setText("Username");
     mainwindow->on_user_changed();
+}
+
+void SettingsBar::on_information_button_clicked()
+{
+    if (ui->statistics_button->text() == "Go back")
+        on_statistics_button_clicked();
+    static bool is_information_opened = 1;
+    main_stackedWidget->setCurrentIndex(is_information_opened ? 2 : 0);
+    statistics_provider->display_statistics();
+    ui->information_button->setText(is_information_opened ? "Go back" : "Information");
+    is_information_opened ^= 1;
 }

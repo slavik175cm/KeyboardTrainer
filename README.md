@@ -1,1 +1,1 @@
-# Application for improving keyboard type speed
+# Qt Application for improving keyboard type speed

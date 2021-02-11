@@ -1,2 +1,1 @@
-# KeyboardTrainer
- course work
+# Application for improving keyboard type speed
